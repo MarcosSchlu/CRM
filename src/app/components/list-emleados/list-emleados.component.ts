@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Empleado } from 'src/app/models/empleado';
@@ -30,7 +31,8 @@ export class ListEmleadosComponent implements OnInit {
 
   constructor(
     private empleadoService: EmpleadoService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +61,9 @@ export class ListEmleadosComponent implements OnInit {
       if (result === 'aceptar') {
         this.empleadoService.eliminarEmpleado(index);
         this.cargarEmpleados();
+        this.snackBar.open('Empleado eliminado', '', {
+          duration: 3000,
+        });
       }
     });
   }
